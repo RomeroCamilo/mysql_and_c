@@ -3,32 +3,31 @@
 #include <iostream>
 #include <string>
 
+//test
+
 int main() {
 
     // Initialize MySQL library
-    if(init_sql_library() != 0){
+    if(init_sql_library_check() != 0){
         return -1;
     }else{
        std::cout<<"\nMySQL library initialization succeeded!\n";
     }
 
-    // Connect to the MySQL server
+    // Connect to the MySQL server and initialize a new MYSQL object.
     MYSQL* conn;
     conn = mysql_init(nullptr);
-
-    if (conn == nullptr) {
-        std::cerr << "MySQL initialization failed." << std::endl;
-        mysql_library_end();
-        return 1;
-    }
-    else{
+    
+    if(init_mysql_check(conn) != 0)
+        return -1;
+    else
         std::cout<<"MySQL initialization succeeded!\n";
-    }
+    
 
     const char* host = "localhost"; // Replace with your MySQL server's hostname
-    const char* user = "root "; // Replace with your MySQL username
-    const char* password = "x"; // Replace with your MySQL password
-    const char* database = "x"; // Replace with the name of the database you want to connect to
+    const char* user = "root"; // Replace with your MySQL username
+    const char* password = "Champion2118!"; // Replace with your MySQL password
+    const char* database = "login"; // Replace with the name of the database you want to connect to
     unsigned int port = 3306; // Replace with the port number of your MySQL server
 
     if (mysql_real_connect(conn, host, user, password, database, port, nullptr, 0) == nullptr) {
